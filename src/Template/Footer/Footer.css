@@ -1,12 +1,16 @@
-#footer {
+#footer-container {
     background-color: rgba(0, 0, 0);
     position: absolute;
+    left: 0;
     bottom: 0;
-    width: 100%;
+    right: 0;
     height: 2.5rem; /* Footer height */
 }
 
 .footer-text {
+    position: relative;
+    left: 0;
+    bottom: 0;
     color: #fff;
     display: flex;
     justify-content: center;

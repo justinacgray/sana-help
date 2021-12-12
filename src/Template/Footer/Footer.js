@@ -4,11 +4,11 @@ import React, { Fragment } from "react";
 const Footer = (props) => {
     return (
         <Fragment>
-            <footer id="footer">
-                <div className="footer-text">
-                    <small>Copyright &copy; Your Website</small>
-                </div>
-            </footer>
+            <div id="footer-container">
+                <footer className="footer-text">
+                    <small>Copyright &copy; Sana Healhcare</small>
+                </footer>
+            </div>
         </Fragment>
     );
 };
