@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import DisplayResults from "../DisplayResults/DisplayResults";
 
 const SearchForm = (props) => {
-    const BASE_URL = "https://npiregistry.cms.hhs.gov/api/?version=2.0";
-    // const CROSS_DOMAIN = "https://cors-anywhere.herokuapp.com";
-    // const REQUEST_URL = `${CROSS_DOMAIN}/${BASE_URL}`;
+    const BASE_URL =
+        " https://clinicaltables.nlm.nih.gov/api/npi_org/v3/search";
+    // const BASE_URL = "https://npiregistry.cms.hhs.gov/registry/";
+    // const BASE_URL = "https://npiregistry.cms.hhs.gov/api/?version=2.1";
+    // const BASE_URL = "https://npi-registry-proxy.herokuapp.com/";
+    // const CROSS_DOMAIN = "cors-anywhere.herokuapp.com";
+    // const CROSS_DOMAIN = "https://npi-registry-proxy.herokuapp.com/";
+    // const REQUEST_URL = `${CROSS_DOMAIN}${BASE_URL}`;
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -18,22 +23,29 @@ const SearchForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let submitURL = BASE_URL + "&pretty=on";
+        let submitURL = BASE_URL;
         submitURL += `&first_name=${firstName}`;
         submitURL += `&last_name=${lastName}`;
         submitURL += `&city=${city}`;
         submitURL += `&state=${state}`;
         submitURL += `&organization_name=${providerName}`;
         submitURL += `&taxonomy_description=${speciality}`;
+
         // console.log(submitURL);
         //use axios to call that submit URL
+        // const Headers = { "Content-Type": "multipart/form-data" };
+
         axios
             .get(submitURL)
             .then((res) => {
                 console.log(res);
             })
             .catch((error) => console.log(error));
-        //save response data into state so we can display it
+
+        // //save response data into state so we can display it
+        // fetch(submitURL)
+        //     .then((res) => res.json())
+        //     .then((json) => console.log(json));
     };
 
     return (
@@ -194,33 +206,48 @@ const SearchForm = (props) => {
                                             setSpeciality(e.target.value)
                                         }>
                                         <option>Select a Speciality</option>
-                                        <option>
+                                        <option value="Allergy and immunology">
+                                            Allergy and immunology
+                                        </option>
+                                        <option value="Anesthesiology">
+                                            Anesthesiology
+                                        </option>
+                                        <option value="Dermatology">
+                                            Dermatology
+                                        </option>
+                                        <option value="Family Medicine">
+                                            Family Medicine
+                                        </option>
+                                        <option value="Gynecology">
+                                            Gynecology
+                                        </option>
+                                        <option value="Internal medicine">
+                                            Internal medicine
+                                        </option>
+                                        <option value="Neurology">
+                                            Neurology
+                                        </option>
+                                        <option value="Oncology">
+                                            Oncology/Cancer
+                                        </option>
+                                        <option value="Ophthalmology">
                                             {" "}
-                                            Allergy and immunology{" "}
+                                            Ophthalmology
                                         </option>
-                                        <option> Anesthesiology</option>
-                                        <option> Dermatology</option>
-                                        <option> Diagnostic radiology</option>
-                                        <option> Family medicine</option>
-                                        <option> Internal medicine</option>
-                                        <option> Medical genetics</option>
-                                        <option> Neurology</option>
-                                        <option> Nuclear medicine</option>
-                                        <option>
-                                            {" "}
-                                            Obstetrics and gynecology
+                                        <option value="Pathology">
+                                            Pathology
                                         </option>
-                                        <option> Ophthalmology</option>
-                                        <option> Pathology</option>
-                                        <option> Pediatrics</option>
-                                        <option>
-                                            Physical medicine and rehabilitation
+                                        <option value="Pediatrics">
+                                            Pediatrics
                                         </option>
-                                        <option> Preventive medicine</option>
-                                        <option> Psychiatry</option>
-                                        <option> Radiation oncology</option>
-                                        <option> Surgery</option>
-                                        <option> Urology</option>
+                                        <option value="Preventive medicine">
+                                            Preventive medicine
+                                        </option>
+                                        <option value="Psychiatry">
+                                            Psychiatry
+                                        </option>
+                                        <option value="Surgery">Surgery</option>
+                                        <option value="Urology">Urology</option>
                                     </select>
                                 </label>
                             </p>
