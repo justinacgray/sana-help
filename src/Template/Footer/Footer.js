@@ -4,6 +4,7 @@ import React, { Fragment } from "react";
 const Footer = (props) => {
     return (
         <Fragment>
+            <div className="clear"></div>
             <div id="footer-container">
                 <footer className="footer-text">
                     <small>Copyright &copy; Sana Healhcare</small>

@@ -4,6 +4,7 @@ import Layout from "../../Template/Layout";
 import Helmet from "react-helmet";
 import SearchForm from "../SearchForm/SearchForm";
 import DisplayResults from "../DisplayResults/DisplayResults";
+import Pagination from "../Pagination/Pagination";
 
 // child component to Layout
 const SearchTool = () => {
@@ -15,6 +16,7 @@ const SearchTool = () => {
             <Layout>
                 <SearchForm />
                 <DisplayResults />
+                <Pagination />
             </Layout>
         </Fragment>
     );

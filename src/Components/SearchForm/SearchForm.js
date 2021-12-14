@@ -1,18 +1,21 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "./SearchForm.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import DisplayResults from "../DisplayResults/DisplayResults";
 
 const SearchForm = (props) => {
     const BASE_URL =
-        " https://clinicaltables.nlm.nih.gov/api/npi_org/v3/search";
-    // const BASE_URL = "https://npiregistry.cms.hhs.gov/registry/";
+        "https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms&q=";
+    // const BASE_URL = " https://www.hipaaspace.com/api/npi/search?q=";
+    // const SECURITY_TOKEN =
+    //     "3932f3b0-cfab-11dc-95ff-0800200c9a663932f3b0-cfab-11dc-95ff-0800200c9a66";
+    // const BASE_URL ="https://clinicaltables.nlm.nih.gov/api/npi_org/v3/search";
     // const BASE_URL = "https://npiregistry.cms.hhs.gov/api/?version=2.1";
     // const BASE_URL = "https://npi-registry-proxy.herokuapp.com/";
     // const CROSS_DOMAIN = "cors-anywhere.herokuapp.com";
     // const CROSS_DOMAIN = "https://npi-registry-proxy.herokuapp.com/";
     // const REQUEST_URL = `${CROSS_DOMAIN}${BASE_URL}`;
+
+    useEffect(() => {}, []);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -24,28 +27,34 @@ const SearchForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         let submitURL = BASE_URL;
-        submitURL += `&first_name=${firstName}`;
-        submitURL += `&last_name=${lastName}`;
-        submitURL += `&city=${city}`;
-        submitURL += `&state=${state}`;
-        submitURL += `&organization_name=${providerName}`;
-        submitURL += `&taxonomy_description=${speciality}`;
-
-        // console.log(submitURL);
-        //use axios to call that submit URL
-        // const Headers = { "Content-Type": "multipart/form-data" };
+        if (firstName !== "") {
+            submitURL += `name.first:${firstName}`;
+        }
+        if (lastName !== "") {
+            submitURL += `+name.last:${lastName}`;
+        }
+        if (city !== "") {
+            submitURL += `+addr_practice.city:${city}`;
+        }
+        if (state !== "") {
+            submitURL += `+addr_practice.state:${state}`;
+        }
+        if (providerName !== "") {
+            submitURL += `+addr_practice.zip:${providerName}`;
+        }
+        if (speciality !== "") {
+            submitURL += `+provider_type:${speciality}`;
+        }
+        console.log(submitURL);
 
         axios
             .get(submitURL)
             .then((res) => {
                 console.log(res);
+                console.log(res.data);
+                console.log(res.data);
             })
             .catch((error) => console.log(error));
-
-        // //save response data into state so we can display it
-        // fetch(submitURL)
-        //     .then((res) => res.json())
-        //     .then((json) => console.log(json));
     };
 
     return (
@@ -67,7 +76,7 @@ const SearchForm = (props) => {
                                     First Name:
                                     <input
                                         type="text"
-                                        name="firstName"
+                                        name="name.first"
                                         placeholder="First Name"
                                         value={firstName}
                                         onChange={(e) =>
@@ -81,7 +90,7 @@ const SearchForm = (props) => {
                                     Last Name:
                                     <input
                                         type="text"
-                                        name="lastName"
+                                        name="name.last"
                                         placeholder="Last Name"
                                         value={lastName}
                                         onChange={(e) =>
@@ -92,11 +101,11 @@ const SearchForm = (props) => {
                             </p>
                             <p>
                                 <label>
-                                    Provider Name:
+                                    Zipcode:
                                     <input
                                         type="text"
-                                        name=""
-                                        placeholder="Provider Name"
+                                        name="addr_practice.zip"
+                                        placeholder="Zipcode"
                                         value={providerName}
                                         onChange={(e) =>
                                             setProviderName(e.target.value)
@@ -109,7 +118,7 @@ const SearchForm = (props) => {
                                     City:
                                     <input
                                         type="text"
-                                        name="city"
+                                        name="addr_practice.city"
                                         placeholder="City"
                                         value={city}
                                         onChange={(e) =>
@@ -122,8 +131,7 @@ const SearchForm = (props) => {
                                 <label>
                                     State:
                                     <select
-                                        className="state"
-                                        id="state"
+                                        name="addr_practice.state"
                                         value={state}
                                         onChange={(e) =>
                                             setState(e.target.value)
@@ -199,8 +207,8 @@ const SearchForm = (props) => {
                                 <label>
                                     Speciality
                                     <select
-                                        className="state"
-                                        id="state"
+                                        name="provider_type"
+                                        id="provider_type"
                                         value={speciality}
                                         onChange={(e) =>
                                             setSpeciality(e.target.value)
