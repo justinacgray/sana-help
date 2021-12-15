@@ -1,60 +1,62 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import "./SearchForm.css";
-import axios from "axios";
 
 const SearchForm = (props) => {
-    const BASE_URL =
-        "https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms&q=";
-    // const BASE_URL = " https://www.hipaaspace.com/api/npi/search?q=";
-    // const SECURITY_TOKEN =
-    //     "3932f3b0-cfab-11dc-95ff-0800200c9a663932f3b0-cfab-11dc-95ff-0800200c9a66";
-    // const BASE_URL ="https://clinicaltables.nlm.nih.gov/api/npi_org/v3/search";
-    // const BASE_URL = "https://npiregistry.cms.hhs.gov/api/?version=2.1";
-    // const BASE_URL = "https://npi-registry-proxy.herokuapp.com/";
-    // const CROSS_DOMAIN = "cors-anywhere.herokuapp.com";
-    // const CROSS_DOMAIN = "https://npi-registry-proxy.herokuapp.com/";
-    // const REQUEST_URL = `${CROSS_DOMAIN}${BASE_URL}`;
-
-    useEffect(() => {}, []);
-
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [providerName, setProviderName] = useState("");
-    const [speciality, setSpeciality] = useState("");
+    const {
+        submitURL,
+        setSubmitURL,
+        loaded,
+        setLoaded,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        city,
+        setCity,
+        state,
+        setState,
+        providerName,
+        setProviderName,
+        speciality,
+        setSpeciality,
+    } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let submitURL = BASE_URL;
+
+        // let URLAfterSubmit = submitURL;
+        // let submitURL = BASE_URL; - passed through props
+        let submitCopy = submitURL;
         if (firstName !== "") {
-            submitURL += `name.first:${firstName}`;
+            setSubmitURL((submitCopy += `name.first:${firstName}`));
         }
         if (lastName !== "") {
-            submitURL += `+name.last:${lastName}`;
+            setSubmitURL((submitCopy += `+name.last:${lastName}`));
         }
         if (city !== "") {
-            submitURL += `+addr_practice.city:${city}`;
+            setSubmitURL((submitCopy += `+addr_practice.city:${city}`));
         }
         if (state !== "") {
-            submitURL += `+addr_practice.state:${state}`;
+            setSubmitURL((submitCopy += `+addr_practice.state:${state}`));
         }
         if (providerName !== "") {
-            submitURL += `+addr_practice.zip:${providerName}`;
+            setSubmitURL((submitCopy += `+addr_practice.zip:${providerName}`));
         }
         if (speciality !== "") {
-            submitURL += `+provider_type:${speciality}`;
+            setSubmitURL((submitCopy += `+provider_type:${speciality}`));
         }
         console.log(submitURL);
 
-        axios
-            .get(submitURL)
-            .then((res) => {
-                console.log(res);
-                console.log(res.data);
-                console.log(res.data);
-            })
-            .catch((error) => console.log(error));
+        setLoaded(!loaded);
+        //clears inputs on the front-end but not the back
+        setFirstName("");
+        setLastName("");
+        setCity("");
+        setState("");
+        setProviderName("");
+        setSpeciality("");
+        //sends back to default
+        // setSubmitURL(URLAfterSubmit);
     };
 
     return (
