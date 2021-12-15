@@ -1,3 +1,11 @@
+This is an NPI Registry Healthcare application where users can find their nearest provider. The solo application was made with React.js. The API used was "https://clinicaltables.nlm.nih.gov/api/npi_idv/v3/search?terms&q=" FROM https://clinicaltables.nlm.nih.gov/apidoc/npi_org/v3/doc.html#params. This API was limited but will be replaced by "https://npiregistry.cms.hhs.gov/api/?version=2.0" FROM https://npiregistry.cms.hhs.gov/registry/help-api as soon as the CORS issued is resolved. One of the solutions I've heard that worked but I haven't got it to work properly for this project YET was creating a proxy with an express server. 
+
+Code will be refactored with not only this API, but one of the bugs noticed was that once a user entered in data, unless manually refreshed, the data will not be cleared properly. The form appears to be cleared but if a user changes the same fields that were just entered data will not populate because the function thinks it still has the previous data entered. This may be the limitation of the API itself or more functionality must be added to not only clear the user fields but reset the function.  Also, this API automatically gives you default data and wanted that section to be cleared before the user enters in any data. These are just 3 bugs noticed with this project, but after more testing will see how to optimize more of the code itself. 
+
+This project was a great challenge and really tested all my knowledge not only on React but real-life problem solving had to come into place too. For instance, my understanding of State and Props, where unidirectional-data-flow came into place, has increased tremendously. Without a firm understanding of those two concepts, this project would not have been possible. One major construct I will be researching is connecting my backend and frontend when I am not making an API from scratch. I realized that I relied a lot on doing a process one particular way and when I couldn't do that on this project it did cause hurdles and delays. I will learn more about how to work with public APIs and integrate them into my backend. 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
